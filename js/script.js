@@ -1,32 +1,24 @@
-function reverseAplha(str) {
-  console.log(str);
-  let start = 0;
-  let end = str.length - 1;
-  while (start < end) {
-    while (
-      !(
-        (str[start] <= "z" && str[start] >= "a") ||
-        (str[start] <= "Z" && str[start] >= "A")
-      )
-    ) {
-      start++;
+function insertionSort(arr) {
+  console.log(arr);
+  debugger
+  for (let i = 0; i < arr.length; i++) {
+    let temp = arr[i];
+    for (let j = i; j > 0; j--) {
+      if (arr[j - 1] > temp) {
+        arr[j] = arr[j - 1];
+      } else {
+        arr[j] = temp;
+        break;
+      }
     }
-    while (
-      !(
-        (str[end] <= "z" && str[end] >= "a") ||
-        (str[end] <= "Z" && str[end] >= "A")
-      )
-    ) {
-      end--;
+    if (arr[0] > temp) {
+      arr[0] = temp;
     }
-    let temp = str[start];
-    str[start] = str[end];
-    str[end] = temp;
-    start++;
-    end--;
   }
-  console.log(str);
+  console.log(arr);
 }
-reverseAplha(
-  "This is Problem Solving 101, Here you will learn A-Z. And course Password Is Guvi#$$1"
+insertionSort(
+  Array.from({ length: 5 + Math.floor(Math.random() * 10) }, () =>
+    Math.floor(Math.random() * 20)
+  )
 );
