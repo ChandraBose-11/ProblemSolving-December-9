@@ -194,34 +194,34 @@
 // );
 
 //! Rotate an array by K position.
-function reverse(arr, start = 0, end = arr.length - 1) {
-  while (start < end) {
-    let temp = arr[start];
-    arr[start] = arr[end];
-    arr[end] = temp;
-    start++;
-    end--;
-  }
-}
+// function reverse(arr, start = 0, end = arr.length - 1) {
+//   while (start < end) {
+//     let temp = arr[start];
+//     arr[start] = arr[end];
+//     arr[end] = temp;
+//     start++;
+//     end--;
+//   }
+// }
 
-function rotatebyk(arr, k) {
-  console.log(arr, k);
-  k = k % arr.length;
-  console.log(k);
-  if (k != 0) {
-    reverse(arr, 0, arr.length - k - 1);
-    reverse(arr, arr.length - k);
-    reverse(arr);
-  }
-  console.log(arr);
-}
-// rotatebyk([1, 2, 3, 4, 5, 6, 7], 55);
-rotatebyk(
-  Array.from({ length: 5 + Math.floor(Math.random() * 10) }, () =>
-    Math.floor(Math.random() * 20)
-  ),
-  Math.floor(Math.random() * 100)
-);
+// function rotatebyk(arr, k) {
+//   console.log(arr, k);
+//   k = k % arr.length;
+//   console.log(k);
+//   if (k != 0) {
+//     reverse(arr, 0, arr.length - k - 1);
+//     reverse(arr, arr.length - k);
+//     reverse(arr);
+//   }
+//   console.log(arr);
+// }
+// // rotatebyk([1, 2, 3, 4, 5, 6, 7], 55);
+// rotatebyk(
+//   Array.from({ length: 5 + Math.floor(Math.random() * 10) }, () =>
+//     Math.floor(Math.random() * 20)
+//   ),
+//   Math.floor(Math.random() * 100)
+// );
 //! Remove duplicates from an array. (Similar to string)
 //! Remove duplicates from a sorted array. (On day 10)
 
