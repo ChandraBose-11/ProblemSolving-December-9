@@ -225,8 +225,6 @@
 //! Remove duplicates from an array. (Similar to string)
 //! Remove duplicates from a sorted array. (On day 10)
 
-
-
 //TODO Post-Session Practice Questions (10):
 //TODO Merge two sorted arrays.
 //TODO Reverse the elements in an array.
