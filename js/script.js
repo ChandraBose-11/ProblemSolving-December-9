@@ -1,24 +1,16 @@
-function insertionSort(arr) {
-  console.log(arr);
-  debugger
-  for (let i = 0; i < arr.length; i++) {
-    let temp = arr[i];
-    for (let j = i; j > 0; j--) {
-      if (arr[j - 1] > temp) {
-        arr[j] = arr[j - 1];
-      } else {
-        arr[j] = temp;
-        break;
-      }
+function generateSubsets(arr) {
+  let subsets = [];
+  function findAllSubsets(index, subset) {
+    console.log(index, subset)
+    debugger;
+    if (index == arr.lengh) {
+      subsets.push(subset);
+      return;
     }
-    if (arr[0] > temp) {
-      arr[0] = temp;
-    }
+    findAllSubsets(index + 1, [...subset, arr[index]]);
+    findAllSubsets(index + 1, subset);
   }
-  console.log(arr);
+  findAllSubsets(0, []);
+  return subsets.map((sub) => `[${sub.join()}]`);
 }
-insertionSort(
-  Array.from({ length: 5 + Math.floor(Math.random() * 10) }, () =>
-    Math.floor(Math.random() * 20)
-  )
-);
+console.log(generateSubsets([1, 2, 3, 4, 5]).join("\n"));
