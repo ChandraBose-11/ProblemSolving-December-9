@@ -173,7 +173,8 @@ function evaluatePostfix(str) {
     }
     return stack.pop();
 }
-console.log(evaluatePostfix("1 2 3 4 + - +"));
+ console.log(evaluatePostfix("1 2 3 4 + - +"));
+
 // todo Post-Session Practice Questions (10):
 // todo Implement a circular queue.
 // todo Sort a stack using recursion.
