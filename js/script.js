@@ -1,81 +1,165 @@
-class Stack {
-  constructor(size = +Infinity) {
-    this.stack = [];
-    this.top = -1;
-    this.size = size;
-  }
-  isEmpty() {
-    return this.top == -1;
-  }
-  isFull() {
-    return this.top == this.size - 1;
-  }
-  push(value) {
-    if (this.isFull()) {
-      console.error("Stack Overflow");
-      return;
-    }
-    this.top++;
-    this.stack.push(value);
-    return this.top;
-  }
-  pop() {
-    if (this.isEmpty()) {
-      console.error("Stack Underflow");
-      return;
-    }
-    this.top--;
-    return this.stack.pop();
-  }
-  peek() {
-    if (this.isEmpty()) {
-      console.warn("Stack is empty");
-      return;
-    }
-    return this.stack[this.top];
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
   }
 }
-function getQueue() {
-  const stack1 = new Stack();
-  const stack2 = new Stack();
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+  insertLast(data) {
+    if (this.head == null) {
+      this.head = new Node(data);
+    } else {
+      let curr = this.head;
 
-  return {
-    enqueue: (value) => stack1.push(value),
-    dequeue: () => {
-      while (!stack1.isEmpty()) {
-        stack2.push(stack1.pop());
+      while (curr.next != null) {
+        curr = curr.next;
       }
-      const value = stack2.pop();
-      while (!stack2.isEmpty()) {
-        stack1.push(stack2.pop());
-      }
-      return value;
-    },
-    peek: () => {
-      while (!stack1.isEmpty()) {
-        stack2.push(stack1.pop());
-      }
-      const value = stack2.peek();
-      while (!stack2.isEmpty()) {
-        stack1.push(stack2.pop());
-      }
-      return value;
-    },
-  };
-}
-
-function nextGreaterElement(arr) {
-  const res = Array(arr.length).fill(-1);
-  const stack = new Stack();
-  for (let ind = arr.length - 1; ind >= 0; ind--) {
-    while (!stack.isEmpty() && stack.peek() <= arr[ind]) {
-      stack.pop();
+      curr.next = new Node(data);
     }
-    if (!stack.isEmpty()) res[ind] = stack.peek();
-    stack.push(arr[ind]);
+  }
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
   }
 
-  console.log(res);
+  insert(data, posFirst = false) {
+    if (posFirst) {
+      this.insertFirst(data);
+    } else {
+      this.insertLast(data);
+    }
+  }
+
+  traverse() {
+    let arr = [];
+    let curr = this.head;
+    while (curr != null) {
+      arr.push(curr.data);
+      curr = curr.next;
+    }
+    console.log(arr)
+    return arr;
+  }
+
+  deleteLast() {
+    if (this.head == null) return;
+    if (this.head.next == null) {
+      this.head = null;
+      return;
+    }
+    let curr = this.head;
+    while (curr.next.next != null) {
+      curr = curr.next;
+    }
+    curr.next = null;
+  }
+
+  reverse() {
+    let curr = this.head;
+
+    let prev = null;
+    let x = null;
+
+    while (curr != null) {
+      x = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = x;
+    }
+    this.head = prev;
+  }
+
+  middleElement() {
+    let fast = this.head;
+    let slow = this.head;
+    while (fast != null && fast.next != null) {
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+    return slow;
+  }
+
+  makeCycle(ind = Math.floor(Math.random() * 10)) {
+    let curr = this.head;
+    let x = null;
+    let i = 0;
+    while (curr.next != null) {
+      i++;
+      if (i == ind) x = curr;
+      curr = curr.next;
+    }
+    curr.next = x;
+  }
+
+  detectCycle() {
+    let fast = this.head;
+    let slow = this.head;
+
+    while (fast != null && fast.next != null) {
+      fast = fast.next.next;
+      slow = slow.next;
+      if (fast == slow) {
+        return true;
+      }
+    }
+    return false
+
+  }
+
+  removeDuplicates() {
+    let fast = this.head;
+    let slow = this.head;
+    while (fast != null) {
+      if (fast.data != slow.data) {
+        slow = slow.next;
+        slow.data = fast.data;
+      }
+      fast = fast.next;
+    }
+    slow.next = null;
+  }
 }
 
-console.log(nextGreaterElement([5, 4, 3, 2, 1, 0].reverse()));
+function merge(list1, list2) {
+  if (list1 == null) return list2;
+  if (list2 == null) return list1;
+  const combinedList = new LinkedList();
+  while (list1 != null && list2 != null) {
+    if (list1.data < list2.data) {
+      combinedList.insert(list1.data);
+      list1 = list1.next;
+    } else {
+      combinedList.insert(list2.data);
+      list2 = list2.next;
+    }
+  }
+  while (list2 != null) {
+    combinedList.insert(list2.data);
+    list2 = list2.next;
+  }
+  while (list1 != null) {
+    combinedList.insert(list1.data);
+    list1 = list1.next;
+  }
+  return combinedList;
+}
+
+const myList2 = new LinkedList();
+let last = 0;
+for (let ind = 0; ind < 10; ind++) {
+  last = last + (Math.random() < 0.5 ? 0 : +Math.floor(Math.random() * 100));
+  myList2.insert(last);
+}
+last = 0;
+const myList1 = new LinkedList();
+for (let ind = 0; ind < 10; ind++) {
+  last = last + (Math.random() < 0.5 ?   0: + Math.floor(Math.random() * 100));
+  myList1.insert(last);
+}
+
+myList1.traverse();
+myList2.traverse();
+const combined = merge(myList1.head, myList2.head);
+combined.traverse();
